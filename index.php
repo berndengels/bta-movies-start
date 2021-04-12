@@ -10,5 +10,5 @@ $id         = null;
 $action     = null;
 // identifikator eines controllers
 $controller = null;
-echo 'Hallo';
+// echo 'Hallo';
 ?>

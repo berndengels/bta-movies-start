@@ -54,7 +54,7 @@ class MyDB extends PDO
      * @param null $params
      * @return bool|PDOStatement
      */
-    protected function prepareAndExecute($sql, $params = null) : PDOStatement
+    protected function prepareAndExecute(string $sql, array $params = null) : PDOStatement
     {
         $stmt = $this->prepare($sql);
         $stmt->execute($params);

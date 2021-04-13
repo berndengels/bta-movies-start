@@ -5,7 +5,7 @@ require_once 'inc/Helper.php';
 require_once 'Controller/AuthorController.php';
 require_once 'Controller/UserController.php';
 
-// Helper::dump($_GET);
+//Helper::dump($_GET);
 // $_GET - assoc. array für get-params
 // initialisiere variablen
 $id         = null;
@@ -24,18 +24,17 @@ if( isset($_GET['controller']) ) {
             $controller = new UserController();
             break;
     }
-    if( isset($_GET['action']) && $controller && method_exists($controller, $_GET['action']) ) { // null !== $controller gibt das gleiche Resultat wie ohne Vorzeichen 
+
+    if (isset($_GET['action']) && $controller && method_exists($controller, $_GET['action'])) {
         $action = $_GET['action'];
-        if( isset($_GET['id']) ) {
+        if(isset($_GET['id'])) {
             $id = $_GET['id'];
             $controller->$action($id);
-        }
-        else {
+        } else {
             $controller->$action();
-        }
+        } 
     }
-}
-else {
-    require_once 'Views/home.php'; // fallback
+} else {
+    require_once 'Views/home.php';
 }
 ?>

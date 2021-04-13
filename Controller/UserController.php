@@ -36,17 +36,15 @@ class UserController {
      */
     public function check() : void
     {
-        $username = $_POST['username'];
-        $password = md5($_POST['password']);
-        if( isset($_POST['login']) ) {
+        Helper::dump($_POST);
+        if(isset($_POST['login'])) {
             $username = $_POST['username'];
             $password = md5($_POST['password']);
-            $user = $this->model->get($username, $password);
+            $user = $this->model->get($username, $password); 
             if($user) {
                 echo "Login OK";
-            }
-            else {
-                $error
+            } else {
+                $error = 'Falsche Login Daten!';
             }
         }
     }

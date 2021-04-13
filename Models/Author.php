@@ -7,9 +7,10 @@ class Author extends Model {
     public function find(int $id) {
         $data = parent::find($id);
 
-        //todo get movies
+        // get movies
         $sql = "SELECT * FROM movies WHERE author_id = ?";
-        $data['movies'] = $this->getAll($sql,[$id]);
+        $data['movies'] = $this->getAll($sql, [$id]);
+
         return $data;
     }
 }

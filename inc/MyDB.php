@@ -34,6 +34,8 @@ class MyDB extends PDO
      */
     public function getAll(string $sql, array $params = null)
     {
+        $stmt = $this->prepareAndExecute($sql, $params);
+        return $stmt->fetchAll();
     }
 
   /**
@@ -43,6 +45,8 @@ class MyDB extends PDO
    */
     public function getOne(string $sql, array $params = null)
     {
+        $stmt = $this->prepareAndExecute($sql, $params);
+        return $stmt->fetch();
     }
 
     /**

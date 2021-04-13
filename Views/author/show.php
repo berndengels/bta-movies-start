@@ -17,6 +17,10 @@
         <tr>
             <th>Anzahl Filme:</th>
             <td><?php echo count($item['movies']); ?></td>
+            echo "<ul>";
+            foreach($item['movies']as $movie) {
+
+            }
         </tr>
     </table>
 <?php else : ?>

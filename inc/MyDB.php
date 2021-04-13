@@ -17,7 +17,7 @@ class MyDB extends PDO
         // DSN: data source name
         $dsn  = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
         $options = [
-            // gib abfrage ergenisse mit dem zechensatzt 'utf8' aus
+            // gibt abfrage ergenisse mit dem zeichensatzt 'utf8' aus
             PDO::MYSQL_ATTR_INIT_COMMAND    => 'SET NAMES utf8',
             // einen einzelnen datensatz nur als assoziatives array ausgeben
             PDO::ATTR_DEFAULT_FETCH_MODE    => PDO::FETCH_ASSOC,
@@ -34,6 +34,8 @@ class MyDB extends PDO
      */
     public function getAll(string $sql, array $params = null)
     {
+        $stmt = $this->prepareAndExecute($sql, $params);
+        return $stmt->fetchAll();
     }
 
   /**
@@ -43,6 +45,8 @@ class MyDB extends PDO
    */
     public function getOne(string $sql, array $params = null)
     {
+        $stmt = $this->prepareAndExecute($sql, $params);
+        return $stmt->fetch();
     }
 
     /**

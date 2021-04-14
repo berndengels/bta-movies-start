@@ -11,12 +11,16 @@ class AuthorController extends Controller
 
     public function index() {
         $list = $this->model->all();
-        require_once 'Views/author/index.php';
+        if(isset( $_SESSION['auth']) ) {
+            require_once 'Views/author/admin/index.php';
+        } else {
+            require_once 'Views/author/index.php';
+        }
     }
 
     public function show($id) {        
         $item = $this->model->find($id);
-        require_once 'Views/author/show.php';
+            require_once 'Views/author/show.php';
     }
 
     // zeige formular zum editiern oder neu anlegen eines datensatzes an

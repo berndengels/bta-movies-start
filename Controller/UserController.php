@@ -54,8 +54,7 @@ class UserController {
     /**
      * logout a user
      */
-    public function logout() : void
-    {
+    public function logout() : void {
         unset($_SESSION['auth']);
         session_destroy();
         header("location: $this->redirectTo");

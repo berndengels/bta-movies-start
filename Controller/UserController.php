@@ -34,17 +34,16 @@ class UserController {
     /**
      * check login data and redirect user
      */
-    public function check() : void
-    {
-        Helper::dump($_POST);
+    public function check() : void {
         if(isset($_POST['login'])) {
             $username = $_POST['username'];
             $password = md5($_POST['password']);
             $user = $this->model->get($username, $password); 
             if($user) {
-                echo "Login OK";
+                Helper::dump($_POST);
             } else {
                 $error = 'Falsche Login Daten!';
+                require_once 'Views/Forms/login.php';
             }
         }
     }

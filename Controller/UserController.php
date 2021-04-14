@@ -20,6 +20,7 @@ class UserController {
      * UserController constructor.
      */
     public function __construct() {
+        $this->model = new User();
     }
 
     /**
@@ -27,6 +28,7 @@ class UserController {
      */
     public function login() : void
     {
+        require_once 'Views/Forms/login.php';
     }
 
     /**
@@ -34,13 +36,33 @@ class UserController {
      */
     public function check() : void
     {
+        if(isset($_POST['login'])){
+    //    Helper::dump($_POST);
+       $username = $_POST['username']; 
+       $password = md5($_POST['password']);
+       $user = $this->model->get($username, $password);
+       if($user){
+        //    echo "Login OK";
+           $_SESSION['auth'] = $user;
+           header("location: $this->redirectTo");
+       }else {
+           $error = 'Falsche Login Daten!';
+       }
+    //    if( isset($_POST['login'])) {
+    //     $username = $_POST['username']; 
+    //     $password = md5($_POST['password']);
+    //    }
     }
+}
 
     /**
      * logout a user
      */
     public function logout() : void
     {
+           unset($_SESSION['auth']);
+           session_destroy();
+           header("location: $this->redirectTo");
     }
 }
 

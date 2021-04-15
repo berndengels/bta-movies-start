@@ -6,7 +6,8 @@ require_once 'inc/Helper.php';
 require_once 'Controller/AuthorController.php';
 require_once 'Controller/MovieController.php';
 require_once 'Controller/UserController.php';
-require_once 'Controller/MovieController.php';
+require_once 'Controller/ApiController.php';
+
 
 // non static call
 // $helper = new Helper();
@@ -36,6 +37,9 @@ if( isset($_GET['controller']) ) {
             break;
         case 'movies':
             $controller = new MovieController();
+            break;
+        case 'api':
+            $controller = new ApiController();
             break;
         default:
             echo "$_GET[controller] is invalid";

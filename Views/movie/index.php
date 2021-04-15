@@ -4,14 +4,14 @@
     <table class="table table-striped">
         <tr>
             <th>ID</th>
-            <th>Vorname</th>
-            <th>Nachname</th>
+            <th>Titel</th>
+            <th>Preis</th>
         </tr>
         <?php foreach ($list as $item) : ?>
             <tr>
                 <td><?php echo $item['id']; ?></td>
-                <td><?php echo $item['firstname']; ?></td>
-                <td><a href="/authors/<?php echo $item['id']; ?>"><?php echo $item['lastname']; ?></a></td>
+                <td><a href="/movies/<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a></td>
+                <td><?php echo $item['price']; ?> €</td>
             </tr>
         <?php endforeach; ?>
     </table>

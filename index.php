@@ -32,8 +32,8 @@ if( isset($_GET['controller']) ) {
         case 'user':
             $controller = new UserController();
             break;
-        default:
-            echo "$_GET[controller] is invalid";
+//        default:
+//            echo "$_GET[controller] is invalid";
     }
 
     if (isset($_GET['action']) && $controller && method_exists($controller, $_GET['action'])) {

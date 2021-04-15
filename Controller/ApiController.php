@@ -1,29 +1,17 @@
-<?php 
+
+<?php
 header('Content-Type: application/json');
-require_once "Models/Author.php";
-
-class ApiController {
-
-    public function __construct() {
-        $this->model = new Author;
-    }
-
-    public function index() {
-        
-    }
+require_once 'Controller/AuthorController.php';
+class ApiController extends AuthorController {
 
     public function authors() {
         $data = $this->model->all();
-        $JSON = json_encode($data);
-        // Helper::dump($JSON);        
-        echo $JSON;        
+        echo json_encode($data);
     }
 
     public function author(int $id) {
-        $data = $this->model->find($id);
-        $JSON = json_encode($data);
-        // Helper::dump($JSON);
-        echo $JSON;
+        $data = $this->model->find($id);        
+        echo json_encode($data);        
     }
 
 }

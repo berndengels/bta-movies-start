@@ -37,4 +37,4 @@ class MovieController extends Controller {
     
 
 }
-$authors = $this->authorModel->all();
+// $authors = $this->authorModel->all();

@@ -8,6 +8,15 @@
         <div class="col-md-10">
             <select name="author_id" id="author_id" class="form-control col-sm-12 col-md-6 px-1">
                 <option value="">Bitte wählen </option>
+                <?php
+                    foreach($authors as $author) {
+                        if($author['id'] == $data['author_id']){
+                            echo "<option selected value='$author[id]'>$author[firstname]$author[lastname]</option>";
+                        }else {
+                            echo "<option value='$author[id]'>$author[firstname]$author[lastname]</option>";
+                        }                     
+                    }
+                ?>
             </select>
         </div>
     </div>

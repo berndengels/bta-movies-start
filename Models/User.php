@@ -8,7 +8,6 @@ class User extends Model {
         
         $sql = "SELECT id, username FROM $this->table WHERE username = ? AND password = ?";
         $data = $this->getOne($sql, [$username, $password]);
-
         return $data;
     }
 } 

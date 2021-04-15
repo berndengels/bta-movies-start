@@ -19,6 +19,7 @@ class UserController {
     /**
      * UserController constructor.
      */
+
     public function __construct() {        
         $this->model = new User();
     }
@@ -26,6 +27,7 @@ class UserController {
     /**
      * get login form
      */
+
     public function login() : void {        
         require_once 'Views/Forms/login.php';        
     }
@@ -33,6 +35,7 @@ class UserController {
     /**
      * check login data and redirect user
      */
+
     public function check() : void {        
         if(isset($_POST['login'])) {
             $username = $_POST['username'];
@@ -52,6 +55,7 @@ class UserController {
     /**
      * logout a user
      */
+
     public function logout() : void {
         unset($_SESSION['auth']);
         session_destroy();

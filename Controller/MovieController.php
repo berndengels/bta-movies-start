@@ -1,8 +1,9 @@
 <?php
 require_once 'Controller.php';
 require_once 'Models/Movie.php';
+
 class MovieController extends Controller {
-    
+
     public function __construct() {
         parent::__construct();
         $this->model = new Movie();
@@ -63,5 +64,6 @@ class MovieController extends Controller {
             $this->model->delete($id);
         }
         header('location: /authors');
+
     }
 }

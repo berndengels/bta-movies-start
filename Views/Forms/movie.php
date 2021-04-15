@@ -1,6 +1,6 @@
 <?php require_once 'inc/html_header.php'; ?>
 
-<form method="post" action="/authors/store<?php if($id): echo "/$id"; endif; ?>">
+<form enctype="multipart/form-data" method="post" action="/authors/store<?php if($id): echo "/$id"; endif; ?>">
 
 
 <div class="form-group row">

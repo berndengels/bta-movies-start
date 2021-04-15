@@ -13,10 +13,9 @@ class AuthorController extends Controller
         $list = $this->model->all();
         if($this->auth) {
             require_once 'Views/author/admin/index.php';
-        } 
-        else {
+        } else {
             require_once 'Views/author/index.php';
-        }
+        }        
     }
 
     public function show($id) {        
@@ -26,36 +25,36 @@ class AuthorController extends Controller
 
     // zeige formular zum editiern oder neu anlegen eines datensatzes an
     public function edit($id = null) {
-
-        if(!$this->auth) {
+        if($this->auth) {
+            $data = null;                      
+            if($id) {
+                $data = $this->model->find($id);
+            }
+            require_once 'Views/Forms/author.php';
+        } else {
             header('location: /authors');
         }
-
-        if($id) {
-            $data = $this->model->find($id);
-        }
-
-        require_once 'Views/Forms/author.php';
+        
     }
 
     public function store($id = null) {
-        if (!$this->auth) {
-            header('location: /authors');
-        }
-        $params = null;
-        
-        if(isset($_POST['firstname']) && '' !== $_POST['firstname'] && isset($_POST['lastname']) && '' !== $_POST['lastname']) {
-            $params = $_POST;
-        }
-
-        if($params) {
-            if ($id) {
-                $this->model->update($params, $id);
-            } else {
-                $this->model->insert($params);
+        if($this->auth) {
+            $data = null;                      
+            $params = null;
+            if(isset($_POST['firstname']) && $_POST['firstname'] !== '' && isset($_POST['lastname']) && $_POST['lastname'] !== '' ) {
+                $params = $_POST;
             }
+            if($params) {
+                if($id) {
+                    // UPDATE
+                    $this->model->update($id, $_POST);
+                } else {                
+                    // INSERT
+                    $this->model->insert($_POST);
+                }            
+            }            
         }
-        header('location: /authors');
+        header('location: /authors');        
     }
 
     public function delete($id) {

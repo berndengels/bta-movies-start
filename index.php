@@ -1,20 +1,16 @@
 <?php
 // starte session
-// include controllers
 session_start();
+// include Helper class
 require_once 'inc/Helper.php';
-/*
-require_once 'Controller/AuthorController.php';
-require_once 'Controller/MovieController.php';
-require_once 'Controller/UserController.php';
-require_once 'Controller/ApiController.php';
-*/
+
 // non static call
 // $helper = new Helper();
 // $helper->dump($_GET);
 
-//Helper::dump($_GET);
-// $_GET - assoc. array für get-params
+// static call
+// Helper::dump($_GET);
+
 // initialisiere variablen
 $id         = null;
 // name einer controller funktion
@@ -41,8 +37,8 @@ if( isset($_GET['controller']) ) {
             require_once 'Controller/ApiController.php';
             $controller = new ApiController();
             break;
-//        default:
-//            echo "$_GET[controller] is invalid";
+    //    default:
+    //        echo "$_GET[controller] is invalid";
     }
 
     if (isset($_GET['action']) && $controller && method_exists($controller, $_GET['action'])) {

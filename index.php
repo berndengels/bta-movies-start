@@ -1,7 +1,11 @@
 <?php
 // starte session
 session_start();
+// include controllers
 require_once 'inc/Helper.php';
+require_once 'Controller/AuthorController.php';
+require_once 'Controller/UserController.php';
+require_once 'Controller/MovieController.php';
 
 // non static call
 // $helper = new Helper();
@@ -9,11 +13,6 @@ require_once 'inc/Helper.php';
 
 // static call
 // Helper::dump($_GET);
-
-// include controllers
-require_once 'Controller/AuthorController.php';
-require_once 'Controller/MovieController.php';
-require_once 'Controller/UserController.php';
 
 // initialisiere variablen
 $id         = null;
@@ -23,10 +22,10 @@ $action     = null;
 $controller = null;
 
 // todo define controller
-if(isset($_GET['controller'])) {
+if( isset($_GET['controller']) ) {
     switch($_GET['controller']) {
         case 'authors':
-            $controller = new AuthorController();            
+            $controller = new AuthorController();
             break;
         case 'user':
             $controller = new UserController();
@@ -38,7 +37,7 @@ if(isset($_GET['controller'])) {
             echo "$_GET[controller] is invalid";
     }
 
-    if(isset($_GET['action']) && $controller && method_exists($controller, $_GET['action'])) {
+    if (isset($_GET['action']) && $controller && method_exists($controller, $_GET['action'])) {
         $action = $_GET['action'];
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
@@ -46,13 +45,9 @@ if(isset($_GET['controller'])) {
         } else {
             $controller->$action();
         }
-        
     }
 
 } else {
     require_once 'Views/home.php';
 }
-
-
-
 ?>

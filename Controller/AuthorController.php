@@ -11,8 +11,12 @@ class AuthorController extends Controller
 
     public function index() {
         $list = $this->model->all();
-        require_once 'Views/author/index.php';
+        if(isset($_SESSION['auth'])) {
+        require_once 'Views/author/admin/index.php';
+        }else{
+            require_once 'Views/author/index.php';
     }
+}
 
     public function show($id) {        
         $item = $this->model->find($id);
@@ -21,11 +25,52 @@ class AuthorController extends Controller
 
     // zeige formular zum editiern oder neu anlegen eines datensatzes an
     public function edit($id = null) {
+
+        if(!$this->auth) {
+            header('location: /authors');
+        }
+
+        if($id) {
+            $data = $this->model->find($id);
+        }
+        Helper::dump($id);
+
+        require_once 'Views/Forms/author.php';
     }
 
     public function store($id = null) {
+        if(!$this->auth) {
+            header('location: /authors');
+        }
+        $params = null;
+        $firstname = "firstname";
+        $lastname = "lastname";
+        
+        if(isset($_POST['firstname'])&& isset($_POST['lastname'])&& ''!== $_POST['firstname']&& '' !==$_POST['lastname']) {
+            $params = $_POST;
+        
+        }
+        
+        if($params) {
+            if($id && $params) {
+                $this->model->update($params,$id);
+            }else {
+                $this->model->insert($params);
+            }           
+        } 
+        header('location: /authors');
     }
+       
 
     public function delete($id) {
+        //todo delete per model function
+        if($this->auth) { //if(isset($_SESSION['auth']))
+            $this->model->delete($id);
+            header('location: /authors');
+            // Helper::dump($item);
+        }
+       
+        
+
     }
 }

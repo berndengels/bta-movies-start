@@ -18,5 +18,9 @@ class Model extends MyDB {
         $sql = "SELECT * FROM $this->table WHERE id=:id";
         return $this->getOne($sql, ['id' => $id]);
     }
+    public function delete(int $id){
+        $sql = "DELETE FROM $this->table WHERE id=?";
+        return $this->prepareAndExecute($sql, [$id]);
+    }
 }
 ?>

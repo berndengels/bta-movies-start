@@ -4,8 +4,11 @@ require_once 'Models/Movie.php';
 require_once 'Models/Author.php';
 class MovieController extends Controller {
 
+    private $authorModel;
+
     public function __construct() {
         $this->model = new Movie();
+        $this->authorModel = new Author();
         parent::__construct();
     }
 
@@ -20,11 +23,18 @@ class MovieController extends Controller {
     }
 
     public function show(int $id) {
-        $authormodel = new Author();
+    
         $item = $this->model->find($id);
-        $item['author'] = $authormodel->find($item['author_id']);
+        $item['author'] = $this->authorModel->find($item['author_id']);
         require_once 'Views/movie/show.php';
     }
-
+    public function delete($id) {
+        if($this->auth) {
+            $this->model->delete($id);
+        }
+        header('location: /movies');
+    }
+    
 
 }
+$authors = $this->authorModel->all();

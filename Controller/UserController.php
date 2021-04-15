@@ -19,28 +19,43 @@ class UserController {
     /**
      * UserController constructor.
      */
-    public function __construct() {
+    public function __construct() {        
+        $this->model = new User();
     }
 
     /**
      * get login form
      */
-    public function login() : void
-    {
+    public function login() : void {        
+        require_once 'Views/Forms/login.php';        
     }
 
     /**
      * check login data and redirect user
      */
-    public function check() : void
-    {
+    public function check() : void {        
+        if(isset($_POST['login'])) {
+            $username = $_POST['username'];
+            $password = md5($_POST['password']);
+            $user = $this->model->get($username, $password);
+            if($user) {
+                // Helper::dump($user);
+                $_SESSION['auth'] = $user;
+                header("location: $this->redirectTo");
+            } else {
+                $error = 'No user found!';
+                require_once 'Views/Forms/login.php';
+            }
+        }        
     }
 
     /**
      * logout a user
      */
-    public function logout() : void
-    {
+    public function logout() : void {
+        unset($_SESSION['auth']);
+        session_destroy();
+        header("location: $this->redirectTo");
     }
 }
 

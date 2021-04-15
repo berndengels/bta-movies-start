@@ -5,7 +5,7 @@
         <label for="firstname" class="col-md-2 col-form-label">Vorname</label>
         <div class="col-md-10">
             <input type="text" id="firstname" name="firstname" class="form-control col-sm-12 col-md-6 px-1" 
-            <?php if ($data) : ?> value="<?php echo $data['firstname'] ?>" <?php endif; ?> required />
+            <?php if (isset($data)) : ?> value="<?php echo $data['firstname'] ?>" <?php endif; ?> required />
         </div>
     </div>
 
@@ -13,13 +13,13 @@
         <label for="lastname" class="col-md-2 col-form-label">Nachname</label>
         <div class="col-md-10">
             <input type="text" id="lastname" name="lastname" class="form-control col-sm-12 col-md-6 px-1" 
-            <?php if ($data) : ?> value="<?php echo $data['lastname'] ?>" <?php endif; ?> required />
+            <?php if (isset($data)) : ?> value="<?php echo $data['lastname'] ?>" <?php endif; ?> required />
         </div>
     </div>
 
     <div class="form-group row">
         <div class="col-md-auto float-right">
-            <input type="submit" id="save" name="save" value="Save" role="button" class="btn btn-primary col-md-auto px-5" />
+            <input type="submit" id="save" value="Save" role="button" class="btn btn-primary col-md-auto px-5" />
         </div>
     </div>
 </form>

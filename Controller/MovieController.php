@@ -1,20 +1,19 @@
 <?php
 require_once 'Controller.php';
-require_once 'Models/Author.php';
-class AuthorController extends Controller
-{
-
+require_once 'Models/Movie.php';
+class MovieController extends Controller {
+    
     public function __construct() {
         parent::__construct();
-        $this->model = new Author();
+        $this->model = new Movie();
     }
 
     public function index() {
         $list = $this->model->all();
         if($this->auth) {
-            require_once 'Views/author/admin/index.php';
+            require_once 'Views/movie/admin/index.php';
         } else {
-            require_once 'Views/author/index.php';
+            require_once 'Views/movie/index.php';
         }        
     }
 

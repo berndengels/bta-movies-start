@@ -12,6 +12,7 @@ require_once 'inc/Helper.php';
 
 // include controllers
 require_once 'Controller/AuthorController.php';
+require_once 'Controller/MovieController.php';
 require_once 'Controller/UserController.php';
 
 // initialisiere variablen
@@ -29,6 +30,9 @@ if(isset($_GET['controller'])) {
             break;
         case 'user':
             $controller = new UserController();
+            break;
+        case 'movies':
+            $controller = new MovieController();
             break;
         default:
             echo "$_GET[controller] is invalid";

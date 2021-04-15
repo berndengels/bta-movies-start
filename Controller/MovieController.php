@@ -58,7 +58,7 @@ class MovieController extends Controller {
 
         if( 0 == $_FILES['image']['error'] ) {
             $image = $_FILES['image']['name'];
-            $destination = __DIR__ . '/../uploads' . $image;
+            $destination = __DIR__ . '/../uploads/' . $image;
             $params['image'] = $image;
             if( move_uploaded_file($_FILES['image']['tmp_name'], $destination) ) {
                 $params['image'] = $image;

@@ -26,17 +26,40 @@ class AuthorController extends Controller
 
     // zeige formular zum editiern oder neu anlegen eines datensatzes an
     public function edit($id = null) {
-        die(__METHOD__);
+        if(!$this->auth) {
+            header('location: /authors');
+        }
+        if($id) {
+            $data = $this->model->find($id);
+        } 
+        require_once 'Views/Forms/author.php';
     }
 
     public function store($id = null) {
-        die(__METHOD__);
+        if(!$this->auth) {
+            header('location: /authors');
+        }
+
+        $params = null;
+        if( isset($_POST['firstname']) && isset($_POST['lastname']) && '' !== $_POST['firstname'] && '' !== $_POST['lastname'] ) {
+            $params = $_POST;
+        }
+
+        if($params) {
+            if($id) {
+                $this->model->update($params, $id);
+            }
+            else {
+                $this->model->insert($params);
+            }
+        }
+        header('location: /authors');
     }
 
     public function delete($id) {
         if($this->auth) {
             $this->model->delete($id);
-            header('location: /authors');
         }
+        header('location: /authors');
     }
 }

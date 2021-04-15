@@ -9,10 +9,8 @@ class MovieController extends Controller {
         $this->model = new Movie();
     }
 
-        
     public function index() {
         $list = $this->model->all();
         Helper::dump($list);
     }
 }
-?>

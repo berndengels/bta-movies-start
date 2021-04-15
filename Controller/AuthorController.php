@@ -11,12 +11,13 @@ class AuthorController extends Controller
 
     public function index() {
         $list = $this->model->all();
-        if(isset($_SESSION['auth'])) {
-        require_once 'Views/author/admin/index.php';
-        }else{
+        if($this->auth) {
+            require_once 'Views/author/admin/index.php';
+        } 
+        else {
             require_once 'Views/author/index.php';
+        }
     }
-}
 
     public function show($id) {        
         $item = $this->model->find($id);
@@ -33,44 +34,34 @@ class AuthorController extends Controller
         if($id) {
             $data = $this->model->find($id);
         }
-        Helper::dump($id);
 
         require_once 'Views/Forms/author.php';
     }
 
     public function store($id = null) {
-        if(!$this->auth) {
+        if (!$this->auth) {
             header('location: /authors');
         }
         $params = null;
-        $firstname = "firstname";
-        $lastname = "lastname";
         
-        if(isset($_POST['firstname'])&& isset($_POST['lastname'])&& ''!== $_POST['firstname']&& '' !==$_POST['lastname']) {
+        if(isset($_POST['firstname']) && '' !== $_POST['firstname'] && isset($_POST['lastname']) && '' !== $_POST['lastname']) {
             $params = $_POST;
-        
         }
-        
+
         if($params) {
-            if($id && $params) {
-                $this->model->update($params,$id);
-            }else {
+            if ($id) {
+                $this->model->update($params, $id);
+            } else {
                 $this->model->insert($params);
-            }           
-        } 
+            }
+        }
         header('location: /authors');
     }
-       
 
     public function delete($id) {
-        //todo delete per model function
-        if($this->auth) { //if(isset($_SESSION['auth']))
+        if($this->auth) {
             $this->model->delete($id);
-            header('location: /authors');
-            // Helper::dump($item);
         }
-       
-        
-
+        header('location: /authors');
     }
 }

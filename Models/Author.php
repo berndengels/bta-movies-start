@@ -13,13 +13,15 @@ class Author extends Model {
 
         return $data;
     }
+
     public function insert(array $params) {
-        $sql = "INSERT INTO (firstname, lastname)VALUES (:firstname, :lasname)";
-        return  $this->prepareAndExecute($sql,$params);
+        $sql = "INSERT INTO authors (firstname, lastname) VALUES (:firstname, :lastname)";
+        return $this->prepareAndExecute($sql, $params);
     }
+
     public function update(array $params, int $id) {
-        $sql = "UPDATE authors SET firstname = :firstname,  lastname = :lasname WHERE id=:id";
-        $params ['id'] = $id;
-        return  $this->prepareAndExecute($sql,$params);
+        $sql = "UPDATE authors SET firstname = :firstname, lastname = :lastname WHERE id=:id";
+        $params['id'] = $id;
+        return $this->prepareAndExecute($sql, $params);
     }
 }

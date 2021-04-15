@@ -47,11 +47,9 @@ class AuthorController extends Controller
             if($params) {
                 if($id) {
                     // UPDATE
-                    // $this->model->update($id, ['firstname', 'lastname'], ["'$_POST[firstname]'", "'$_POST[lastname]'"]);
                     $this->model->update($id, $_POST);
                 } else {                
                     // INSERT
-                    // $this->model->insert(['firstname', 'lastname'], ["'$_POST[firstname]'", "'$_POST[lastname]'"]);
                     $this->model->insert($_POST);
                 }            
             }            

@@ -4,16 +4,15 @@
     <table class="table table-striped">
         <tr>
             <th>ID</th>
-            <th>Title</th>
-            <th>Price</th>
+            <th>Titel</th>
+            <th>Preis</th>
             <!-- <th>Nachname</th> -->
         </tr>
         <?php foreach ($list as $item) : ?>
             <tr>
                 <td><?php echo $item['id']; ?></td>
-                <td><?php echo $item['title']; ?></td>
-                <td><?php echo $item['price']; ?></td>
-                <!-- <td><a href="/authors/<?php // echo $item['id']; ?>"><?php //echo $item['lastname']; ?></a></td> -->
+                <td><a href="/movies/<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a></td>
+                <td><?php echo $item['price']; ?></td>                
             </tr>
         <?php endforeach; ?>
     </table>

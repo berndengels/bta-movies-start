@@ -7,23 +7,18 @@
             <td><?php echo $item['id']; ?></td>
         </tr>
         <tr>
-            <th>Vorname:</th>
-            <td><?php echo $item['firstname']; ?></td>
+            <th>Titel:</th>
+            <td><?php echo $item['title']; ?></td>
         </tr>
         <tr>
-            <th>Nachname:</th>
-            <td><?php echo $item['lastname']; ?></td>
+            <th>Peis:</th>
+            <td><?php echo $item['price']; ?></td>
+        </tr>        
+        <tr> 
+            <th>Autor:</th> 
+            <td><?php echo $item['author']['firstname']. ' ' .$item['author']['lastname'] ?></td>
         </tr>
-        <tr>
-            <th>Anzahl Filme:</th>
-            <td><?php //echo count($item['movies']);  
-            echo "<ul>";
-            foreach($item['movies'] as $movie) {
-                echo "<li>" . $movie['title'] . "</li>";
-            }
-            echo '</ul>';
-            ?></td>
-        </tr>
+
     </table>
 <?php else : ?>
     <h3>Keine Daten vorhanden</h3>

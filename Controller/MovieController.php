@@ -1,6 +1,7 @@
 <?php
 require_once 'Controller.php';
 require_once 'Models/Movie.php';
+require_once 'Models/Author.php';
 
 class MovieController extends Controller {
 
@@ -19,8 +20,10 @@ class MovieController extends Controller {
     }
 
     public function show($id) {        
+        $authormodel = new Author();
         $item = $this->model->find($id);
-        require_once 'Views/author/show.php';
+        $item['author'] = $authormodel->find($item['author_id']);        
+        require_once 'Views/movie/show.php';
     }
 
     // zeige formular zum editiern oder neu anlegen eines datensatzes an
@@ -30,9 +33,9 @@ class MovieController extends Controller {
             if($id) {
                 $data = $this->model->find($id);
             }
-            require_once 'Views/Forms/author.php';
+            require_once 'Views/Forms/movies.php';
         } else {
-            header('location: /authors');
+            header('location: /movies');
         }
         
     }
@@ -47,23 +50,21 @@ class MovieController extends Controller {
             if($params) {
                 if($id) {
                     // UPDATE
-                    // $this->model->update($id, ['firstname', 'lastname'], ["'$_POST[firstname]'", "'$_POST[lastname]'"]);
-                    $this->model->update($id, $_POST);
+                    // $this->model->update($id, $_POST);
                 } else {                
                     // INSERT
-                    // $this->model->insert(['firstname', 'lastname'], ["'$_POST[firstname]'", "'$_POST[lastname]'"]);
-                    $this->model->insert($_POST);
+                    // $this->model->insert($_POST);
                 }            
             }            
         }
-        header('location: /authors');        
+        header('location: /movies');        
     }
 
     public function delete($id) {
         if($this->auth) {
             $this->model->delete($id);
         }
-        header('location: /authors');
+        header('location: /movies');
 
     }
 }

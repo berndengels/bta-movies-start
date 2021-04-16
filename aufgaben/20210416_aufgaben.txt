@@ -8,10 +8,10 @@ als zuvor.
 2. Versucht bitte die CRUD-Funktionalitäten für die Anzeige und Verwaltung der Kategorie-Daten
 (DB-Tabelle "category") zu erstellen. Als Vorlage kann hier die Logik der Anzeige und Verwaltung
 der Autoren-Daten dienen. Das muß folgendes erstellt oder angepaßt/ergänzt werden:
-- Controller-Switch in index.php (im Root-Verzeichnis).
-- neue Model-Klasse "Category"
-- neuer Controller "CategoryController"
-- neue View-Dateien in Views anlegen. Hier Unterordner "category" anlegen und analog 
+x- Controller-Switch in index.php (im Root-Verzeichnis).
+x- neue Model-Klasse "Category"
+x- neuer Controller "CategoryController"
+x- neue View-Dateien in Views anlegen. Hier Unterordner "category" anlegen und analog 
   zu "author" verfahren.
 In den neu erstellten Klassen die entsprechenden Funktionen (Methoden) anlegen.
 Die Navigations-Punkte und die htaccess-Datei ist bereits vorbereitet, muß also 

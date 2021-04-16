@@ -2,7 +2,6 @@
 require_once 'Controller.php';
 require_once 'Models/Movie.php';
 require_once 'Models/Author.php';
-
 class MovieController extends Controller {
 
     private $authorModel;
@@ -15,26 +14,25 @@ class MovieController extends Controller {
 
     public function index() {
         $list = $this->model->all();
-        if($this->auth) {
+        if ($this->auth) {
             require_once 'Views/movie/admin/index.php';
-        } 
-        else {
+        } else {
             require_once 'Views/movie/index.php';
         }
     }
 
-    public function show($id) {        
+    public function show(int $id) {
         $item = $this->model->find($id);
-        $item['author'] = $this->authorModel->find($item['author_id']);        
+        $item['author'] = $this->authorModel->find($item['author_id']);
         require_once 'Views/movie/show.php';
     }
 
+        // zeige formular zum editiern oder neu anlegen eines datensatzes an
     public function edit($id = null) {
 
         if(!$this->auth) {
             header('location: /movies');
         }
-
         $authors = $this->authorModel->all();
 
         if($id) {
@@ -50,17 +48,17 @@ class MovieController extends Controller {
         }
 
         $params = null;
-        
+
         if(isset($_POST['title']) && '' !== $_POST['title'] && isset($_POST['price']) && '' !== $_POST['price']) {
             $params = $_POST;
             $params['image'] = null;
         }
 
-        if( 0 == $_FILES['image']['error'] ) {
+        if( UPLOAD_ERR_OK == $_FILES['image']['error']) {
             $image = $_FILES['image']['name'];
             $destination = __DIR__ . '/../uploads/' . $image;
-            $params['image'] = $image;
-            if( move_uploaded_file($_FILES['image']['tmp_name'], $destination) ) {
+            // todo: upload per move_uploaded_file
+            if(move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
                 $params['image'] = $image;
             }
         }

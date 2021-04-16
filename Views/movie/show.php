@@ -7,25 +7,25 @@
             <td><?php echo $item['id']; ?></td>
         </tr>
         <tr>
-            <th>Title:</th>
+            <th>Titel:</th>
             <td><?php echo $item['title']; ?></td>
         </tr>
         <tr>
-            <th>Price:</th>
-            <td><?php echo $item['price']; ?></td>
+            <th>Preis:</th>
+            <td><?php echo $item['price']; ?> €</td>
         </tr>
-        <tr>
-            <th>Author:</th>
+        <tr> 
+            <th>Autor:</th> 
             <td><?php echo $item['author']['firstname']. ' ' .$item['author']['lastname'] ?></td>
         </tr>
-        <?php if($item['image'] && $item['image'] !== "") { ?>
-            <tr>
-                <th>Image:</th>
+        <?php if($item['image'] && '' !== $item['image']): ?>
+            <tr> 
+                <th>Bild:</th> 
                 <td>
-                    <img width="200px" src="/uploads/<?php echo "$item[image]"; ?>" alt="">
+                    <img src="/uploads/<?php echo $item['image']; ?>" width="400" alt="Bild" />
                 </td>
             </tr>
-        <?php } ?>
+        <?php endif; ?>
     </table>
 <?php else : ?>
     <h3>Keine Daten vorhanden</h3>

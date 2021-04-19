@@ -31,6 +31,8 @@ class CategoryController extends Controller
             header('location: /categories');
         }
 
+        $data = null;
+
         if($id) {
             $data = $this->model->find($id);
         }

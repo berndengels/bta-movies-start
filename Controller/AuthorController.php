@@ -31,6 +31,8 @@ class AuthorController extends Controller
             header('location: /authors');
         }
 
+        $data = null;
+
         if($id) {
             $data = $this->model->find($id);
         }

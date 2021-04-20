@@ -5,12 +5,10 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <!-- <th>Nachname</th> -->
         </tr>
         <?php foreach ($list as $item) : ?>
             <tr>
                 <td><?php echo $item['id']; ?></td>
-                <!-- <td><?php echo $item['name']; ?></td> -->
                 <td><a href="/categories/<?php echo $item['id']; ?>"><?php echo $item['name']; ?></a></td>
             </tr>
         <?php endforeach; ?>

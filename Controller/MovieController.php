@@ -1,14 +1,18 @@
 <?php
 require_once 'Controller.php';
+require_once 'TAuthors.php';
+require_once 'IController.php';
 require_once 'Models/Movie.php';
 require_once 'Models/Author.php';
-class MovieController extends Controller {
-    
+
+class MovieController extends Controller implements IController {
+    use TAuthors;
+
     private $authorModel;
 
     public function __construct() {
         $this->model = new Movie();
-        $this->authorModel = new Author();
+//        $this->authorModel = new Author();
         parent::__construct();
     }
 
@@ -23,7 +27,8 @@ class MovieController extends Controller {
 
     public function show(int $id) {
         $item = $this->model->find($id);
-        $item['author'] = $this->authorModel->find($item['author_id']);
+//        $item['author'] = $this->authorModel->find($item['author_id']);
+        $item['author'] = $this->getAuthor($item['author_id']);
         require_once 'Views/movie/show.php';
     }
 
@@ -33,7 +38,8 @@ class MovieController extends Controller {
         if(!$this->auth) {
             header('location: /movies');
         }
-        $authors = $this->authorModel->all();
+//        $authors = $this->authorModel->all();
+        $authors = $this->getAuthors();
 
         if($id) {
             $data = $this->model->find($id);
@@ -48,17 +54,17 @@ class MovieController extends Controller {
         }
 
         $params = null;
-        // Helper::dump($_FILES);
+
         if(isset($_POST['title']) && '' !== $_POST['title'] && isset($_POST['price']) && '' !== $_POST['price']) {
             $params = $_POST;
             $params['image'] = null;
         }
 
-        if( 0 == $_FILES['image']['error']) {
+        if( UPLOAD_ERR_OK == $_FILES['image']['error']) {
             $image = $_FILES['image']['name'];
             $destination = __DIR__ . '/../uploads/' . $image;
             // todo: upload per move_uploaded_file
-            if(move_uploaded_file($_FILES['image']['tmp_name'], $destination )) {
+            if(move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
                 $params['image'] = $image;
             }
         }
@@ -73,7 +79,7 @@ class MovieController extends Controller {
         header('location: /movies');
     }
 
-    public function delete($id) {
+    public function delete(int $id) {
         if($this->auth) {
             $this->model->delete($id);
         }

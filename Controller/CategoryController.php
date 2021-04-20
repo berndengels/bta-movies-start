@@ -1,10 +1,8 @@
 <?php
 require_once 'Controller.php';
 require_once 'Models/Category.php';
-// require_once 'Models/Category.php';
 
-class CategoryController extends Controller
-{
+class CategoryController extends Controller {
 
     public function __construct() {
         $this->model = new Category();
@@ -15,32 +13,33 @@ class CategoryController extends Controller
         $list = $this->model->all();
         if($this->auth) {
             require_once 'Views/category/admin/index.php';
-        } 
+        }
         else {
             require_once 'Views/category/index.php';
         }
     }
 
-    public function show($id) {        
+    public function show($id) {
         $item = $this->model->find($id);
         require_once 'Views/category/show.php';
     }
 
+    // zeige formular zum editiern oder neu anlegen eines datensatzes an
     public function edit($id = null) {
+
         if(!$this->auth) {
             header('location: /categories');
         }
 
-      
-
         if($id) {
             $data = $this->model->find($id);
         }
+
         require_once 'Views/Forms/category.php';
     }
 
     public function store($id = null) {
-        if(!$this->auth) {
+        if (!$this->auth) {
             header('location: /categories');
         }
         $params = null;
@@ -48,6 +47,7 @@ class CategoryController extends Controller
         if(isset($_POST['name']) && '' !== $_POST['name']) {
             $params = $_POST;
         }
+
         if($params) {
             if ($id) {
                 $this->model->update($params, $id);
@@ -65,5 +65,3 @@ class CategoryController extends Controller
         header('location: /categories');
     }
 }
-    
-

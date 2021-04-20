@@ -20,28 +20,35 @@ class Model extends MyDB {
         return $this->getOne($sql, ['id' => $id]);
     }
 
-    // public function insert($keys, $values) {
-    //     $keysAsString = implode(",", $keys);
-    //     $valuesAsString = implode(",", $values);
-    //     $sql = "INSERT INTO $this->table ($keysAsString) VALUES ($valuesAsString)";        
-    //     return $this->prepareAndExecute($sql);
-    // }
+    public function insert(array $params) {
+        $keys = [];
+        $values = [];
+        foreach($params as $key=>$value) {
+            $keys[] = $key;
+            $values[] = "\"$value\"";            
+        }
+        $keysAsString = implode(",", $keys);
+        $valuesAsString = implode(",", $values);
+        $sql = "INSERT INTO $this->table ($keysAsString) VALUES ($valuesAsString)";        
+        return $this->prepareAndExecute($sql);
+    }
 
-    // public function update($id, $keys, $values) {
+    public function update(int $id, array $params) {        
+        $updateArgument = "";
+        $first = true;
+        foreach($params as $key=>$value) {
+            if($first) {
+                $first = false;
+            } else {
+                $updateArgument .= ", ";
+            }
+            $updateArgument .= "$key = :$key";               
+        }
 
-
-    //     $updateValues = "";
-
-    //     foreach($keys as $index=>$key) {
-    //         if($updateValues != "") {
-    //             $updateValues .= ",";
-    //         }
-    //         $updateValues .= $keys[$index] . "=" . $values[$index];            
-    //     }
-
-    //     $sql = "UPDATE $this->table SET $updateValues WHERE id = ?";
-    //     return $this->prepareAndExecute($sql, [$id]);
-    // }
+        $sql = "UPDATE $this->table SET $updateArgument WHERE id = :id";
+        $params['id'] = $id;
+        return $this->prepareAndExecute($sql, $params);
+    }
 
     public function delete(int $id) {
         $sql = "DELETE FROM $this->table WHERE id = ?";

@@ -5,9 +5,12 @@ require_once 'Models/Author.php';
 
 class MovieController extends Controller {
 
-    public function __construct() {
-        parent::__construct();
+    private $authorModel;
+
+    public function __construct() {        
         $this->model = new Movie();
+        $this->authorModel = new Author();
+        parent::__construct();
     }
 
     public function index() {
@@ -19,10 +22,9 @@ class MovieController extends Controller {
         }        
     }
 
-    public function show($id) {        
-        $authormodel = new Author();
+    public function show($id) {                
         $item = $this->model->find($id);
-        $item['author'] = $authormodel->find($item['author_id']);        
+        $item['author'] = $this->authorModel->find($item['author_id']);        
         require_once 'Views/movie/show.php';
     }
 
@@ -30,10 +32,13 @@ class MovieController extends Controller {
     public function edit($id = null) {
         if($this->auth) {
             $data = null;                      
+            $authors = null;
+            
             if($id) {
                 $data = $this->model->find($id);
             }
-            require_once 'Views/Forms/movies.php';
+            $authors = $this->authorModel->all();
+            require_once 'Views/Forms/movie.php';
         } else {
             header('location: /movies');
         }
@@ -44,17 +49,32 @@ class MovieController extends Controller {
         if($this->auth) {
             $data = null;                      
             $params = null;
-            if(isset($_POST['firstname']) && $_POST['firstname'] !== '' && isset($_POST['lastname']) && $_POST['lastname'] !== '' ) {
+            $continueAfterImage = true;
+            
+
+
+            if(isset($_POST['title']) && $_POST['title'] !== '' && isset($_POST['price']) && $_POST['price'] !== '' ) {
                 $params = $_POST;
+                $params['image'] = null;
             }
-            if($params) {
-                if($id) {
-                    // UPDATE
-                    // $this->model->update($id, $_POST);
-                } else {                
-                    // INSERT
-                    // $this->model->insert($_POST);
-                }            
+        
+            if($_FILES['image']['error'] == 0) {
+                $image = $_FILES['image']['name'];
+                $destination = __DIR__.'/../uploads/'.$image;
+                $params['image'] = $image;                                
+                $continueAfterImage = move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+            } 
+
+            if($params) {                
+                if($continueAfterImage) {
+                    if($id) {
+                        // UPDATE
+                        $this->model->update($id, $params);
+                    } else {                
+                        // INSERT
+                        $this->model->insert($params);
+                    }
+                }                            
             }            
         }
         header('location: /movies');        

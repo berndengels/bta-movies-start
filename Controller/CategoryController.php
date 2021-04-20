@@ -1,26 +1,30 @@
 <?php
 require_once 'Controller.php';
-require_once 'Models/Author.php';
-class AuthorController extends Controller
+require_once 'Models/Category.php';
+require_once 'Models/Event.php';
+class CategoryController extends Controller
 {
 
+    private $eventModel;
+
     public function __construct() {        
-        $this->model = new Author();
+        $this->model = new Category();
+        $this->eventModel = new Event();
         parent::__construct();
     }
 
     public function index() {
         $list = $this->model->all();
         if($this->auth) {
-            require_once 'Views/author/admin/index.php';
+            require_once 'Views/category/admin/index.php';
         } else {
-            require_once 'Views/author/index.php';
+            require_once 'Views/category/index.php';
         }        
     }
 
     public function show($id) {        
-        $item = $this->model->find($id);
-        require_once 'Views/author/show.php';
+        $item = $this->model->find($id);        
+        require_once 'Views/category/show.php';
     }
 
     // zeige formular zum editiern oder neu anlegen eines datensatzes an
@@ -30,18 +34,17 @@ class AuthorController extends Controller
             if($id) {
                 $data = $this->model->find($id);
             }
-            require_once 'Views/Forms/author.php';
+            require_once 'Views/Forms/category.php';
         } else {
-            header('location: /authors');
-        }
-        
+            header('location: /categories');
+        }        
     }
 
     public function store($id = null) {
         if($this->auth) {
             $data = null;                      
             $params = null;
-            if(isset($_POST['firstname']) && $_POST['firstname'] !== '' && isset($_POST['lastname']) && $_POST['lastname'] !== '' ) {
+            if(isset($_POST['name']) && $_POST['name'] !== '') {
                 $params = $_POST;
             }
             if($params) {
@@ -54,13 +57,13 @@ class AuthorController extends Controller
                 }            
             }            
         }
-        header('location: /authors');        
+        header('location: /categories');        
     }
 
     public function delete($id) {
         if($this->auth) {
             $this->model->delete($id);
         }
-        header('location: /authors');
+        header('location: /categories');
     }
 }

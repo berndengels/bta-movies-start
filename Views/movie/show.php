@@ -18,6 +18,14 @@
             <th>Autor:</th> 
             <td><?php echo $item['author']['firstname']. ' ' .$item['author']['lastname'] ?></td>
         </tr>
+        <?php if($item['image'] && $item['image'] !== "") { ?>
+            <tr>
+                <th>Image:</th>
+                <td>
+                    <img src="/uploads/<?php echo "$item[image]"; ?>" alt="">
+                </td>
+            </tr>
+        <?php } ?>      
 
     </table>
 <?php else : ?>

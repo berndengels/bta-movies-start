@@ -25,12 +25,13 @@ class Model extends MyDB {
         $values = [];
         foreach($params as $key=>$value) {
             $keys[] = $key;
-            $values[] = "\"$value\"";            
+            $values[] = ":$key";            
+            
         }
         $keysAsString = implode(",", $keys);
         $valuesAsString = implode(",", $values);
         $sql = "INSERT INTO $this->table ($keysAsString) VALUES ($valuesAsString)";        
-        return $this->prepareAndExecute($sql);
+        return $this->prepareAndExecute($sql, $params);
     }
 
     public function update(int $id, array $params) {        

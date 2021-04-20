@@ -1,8 +1,8 @@
 <?php
 require_once 'Controller.php';
 require_once 'Models/Category.php';
-class CategoryController extends Controller
-{
+
+class CategoryController extends Controller {
 
     public function __construct() {
         $this->model = new Category();
@@ -13,13 +13,13 @@ class CategoryController extends Controller
         $list = $this->model->all();
         if($this->auth) {
             require_once 'Views/category/admin/index.php';
-        } 
+        }
         else {
             require_once 'Views/category/index.php';
         }
     }
 
-    public function show($id) {        
+    public function show($id) {
         $item = $this->model->find($id);
         require_once 'Views/category/show.php';
     }
@@ -30,8 +30,6 @@ class CategoryController extends Controller
         if(!$this->auth) {
             header('location: /categories');
         }
-
-        $data = null;
 
         if($id) {
             $data = $this->model->find($id);
@@ -45,7 +43,7 @@ class CategoryController extends Controller
             header('location: /categories');
         }
         $params = null;
-        
+
         if(isset($_POST['name']) && '' !== $_POST['name']) {
             $params = $_POST;
         }

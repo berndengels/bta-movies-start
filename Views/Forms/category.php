@@ -4,8 +4,8 @@
     <div class="form-group row">
         <label for="name" class="col-md-2 col-form-label">Name</label>
         <div class="col-md-10">
-            <input type="text" id="name" name="name" class="form-control col-sm-12 col-md-6 px-1" 
-            <?php if ($data) : ?> value="<?php echo $data['name'] ?>" <?php endif; ?> required />
+            <input type="text" id="name" name="name" class="form-control col-sm-12 col-md-6 px-1"
+            <?php if (isset($data)) : ?> value="<?php echo $data['name'] ?>" <?php endif; ?> required />
         </div>
     </div>
 

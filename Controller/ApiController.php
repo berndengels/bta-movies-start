@@ -13,4 +13,5 @@ class ApiController extends AuthorController {
         $data = $this->model->find($id);
         echo json_encode($data);
     }
+
 }
